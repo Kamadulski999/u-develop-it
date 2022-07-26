@@ -13,10 +13,16 @@ app.use(express.json());
 app.use('/api', apiRoutes);
 
 
-
-
-
-
+// Connect to database
+const db = mysql.createConnection( 
+    {
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'election'
+    },
+    console.log('connected to the election database')
+);
 
 // Not Found response for unmatched routes
 app.use((req, res) => {
@@ -31,3 +37,11 @@ db.connect(err => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+
+
+
+  // Default response for any other request (Not Found)
+app.use((req, res) => {
+    res.status(404).end();
+  });
+
